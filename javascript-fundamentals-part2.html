@@ -1,0 +1,3662 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="UTF-8">
+<title>JavaScript ES6 Concepts</title>
+
+<style>
+
+/* BASE */
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family: "Segoe UI", Arial, sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body{
+  background:#f9fafb;
+  color:#111827;
+  display:flex;
+  line-height:1.6;
+}
+
+/* SIDEBAR */
+.sidebar{
+  width:280px;
+  height:100vh;
+  position:fixed;
+  background:#ffffff;
+  border-right:1px solid #e5e7eb;
+  padding:16px;
+  overflow-y:auto;
+}
+
+.sidebar h2{
+  font-size:18px;
+  margin-bottom:18px;
+  color:#1d4ed8;
+  letter-spacing:0.5px;
+}
+
+.sidebar a{
+  display:block;
+  padding:8px 10px;
+  margin:5px 0;
+  text-decoration:none;
+  color:#374151;
+  border-radius:8px;
+  transition:0.25s ease;
+  border:1px solid transparent;
+}
+
+.sidebar a:hover{
+  background:#eff6ff;
+  border-color:#bfdbfe;
+  transform:translateX(4px);
+}
+
+/* CONTENT */
+.content{
+  margin-left:300px;
+  padding:40px;
+  width:100%;
+}
+
+/* CARD */
+.card{
+  background:#ffffff;
+  border:1px solid #e5e7eb;
+  border-radius:12px;
+  padding:32px;
+  margin-bottom:28px;
+  box-shadow:0 4px 12px rgba(0,0,0,0.04);
+  transition:0.3s ease;
+}
+
+.card:hover{
+  box-shadow:0 10px 25px rgba(0,0,0,0.08);
+}
+
+/* HEADINGS */
+h1{
+  font-size:28px;
+  margin-bottom:10px;
+  color:#111827;
+}
+
+h2{
+  font-size:22px;
+  color:#1d4ed8;
+  margin-bottom:12px;
+}
+
+h3{
+  margin-top:18px;
+  margin-bottom:10px;
+  color:#2563eb;
+}
+
+/* DESCRIPTION BLOCK */
+.desc{
+  background:#eff6ff;
+  border-left:4px solid #3b82f6;
+  padding:14px 16px;
+  border-radius:8px;
+  margin:14px 0 18px 0;
+  color:#1e3a8a;
+}
+
+/* CODE */
+pre{
+  background:#0f172a;
+  color:#e2e8f0;
+  padding:18px;
+  border-radius:10px;
+  overflow-x:auto;
+  margin:14px 0;
+  font-size:14px;
+}
+
+/* OUTPUT */
+.output{
+  background:#ecfdf5;
+  border-left:4px solid #10b981;
+  padding:12px 14px;
+  border-radius:8px;
+  margin:12px 0;
+  color:#065f46;
+  font-weight:500;
+}
+
+/* SUMMARY */
+.summary{
+  background:#fff7ed;
+  border-left:4px solid #f97316;
+  padding:16px;
+  border-radius:10px;
+  margin-top:18px;
+  color:#7c2d12;
+}
+
+/* SPACING HELPERS */
+.section-gap{
+  margin-top:20px;
+}
+
+.sidebar a {
+  display: block;
+  padding: 12px 16px;
+  margin-bottom: 8px;
+  color: #444;
+  text-decoration: none;
+  border-radius: 10px;
+  transition: all 0.3s ease;
+  font-weight: 500;
+  border-left: 4px solid transparent;
+}
+
+.sidebar a:hover {
+  background: #f3f6ff;
+  color: #2563eb;
+}
+
+.sidebar a.active {
+  background: linear-gradient(to right, #2563eb, #3b82f6);
+  color: white;
+  border-left: 4px solid #1d4ed8;
+  box-shadow: 0 4px 12px rgba(37,99,235,0.25);
+  transform: translateX(4px);
+}
+
+pre {
+  position: relative;
+  background: #0f172a;
+  color: #e2e8f0;
+  padding: 20px;
+  border-radius: 14px;
+  overflow-x: auto;
+  margin-top: 20px;
+}
+
+.copy-btn {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  border: none;
+  background: #2563eb;
+  color: white;
+  padding: 8px 14px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 13px;
+  transition: 0.3s ease;
+}
+
+.copy-btn:hover {
+  background: #1d4ed8;
+}
+.mt-20 {
+  margin-top: 20px;
+}
+.mb-20 {
+  margin-bottom: 20px;
+}
+.mb-15 {
+  margin-bottom: 15px;
+}
+.ml-20 {
+  margin-left: 20px;
+}
+.ml-40 {
+  margin-left: 40px;
+}
+</style>
+
+</head>
+
+<body>
+
+<!-- SIDEBAR -->
+<div class="sidebar">
+<h2>JS Advanced Concepts</h2>
+<a href="#intro">ES6 Introduction</a>
+<a href="#varletconst">var let const</a>
+<a href="#arrow">Arrow Functions</a>
+<a href="#template">Template Literals</a>
+<a href="#destructuring">Destructuring</a>
+<a href="#spreadrest">Spread & Rest</a>
+<a href="#modules">Modules (import/export)</a>
+<a href="#closures">Closures</a>
+<a href="#thiskeyword">this Keyword</a>
+<a href="#bindmethods">call / apply / bind</a>
+<a href="#pureimmutability">Pure Functions & Immutability</a>
+<a href="#promises">Promises</a>
+<a href="#asyncawait">Async / Await</a>
+<a href="#execution">Execution Context & Call Stack</a>
+<a href="#eventloop">Event Loop</a>
+<a href="#debounce">Debouncing</a>
+<!-- <a href="#prototype">Prototype & Inheritance</a> -->
+<a href="#hoisting">Hoisting</a>
+<a href="#memoization">Memoization</a>
+<a href="#oop">OOP Concepts (JavaScript)</a>
+<!-- <a href="#oop-advanced">Advanced OOP Concepts</a> -->
+</div>
+
+<!-- CONTENT -->
+<div class="content">
+
+<!-- INTRO -->
+<div class="card" id="intro">
+
+<h1>ES6 Introduction</h1>
+
+<div class="desc">
+ES6 (ECMAScript 2015) is a major evolution of JavaScript that introduced modern syntax, improved readability, and solved long-standing issues in variable scope, functions, and modular programming.
+</div>
+
+<p>
+Before ES6, JavaScript was less structured and often led to unpredictable behavior in large applications. ES6 introduced a cleaner and scalable approach that is now the foundation of modern frameworks like React, Angular, and Node.js.
+</p>
+<!-- 
+<p class="mt-20 mb-20">Before ES6, JavaScript had many limitations:</p>
+
+<ul class="ml-40">
+  <li>confusing var scoping</li>
+  <li>callback-heavy async code</li>
+  <li>no native classes/modules</li>
+  <li>difficult object handling</li>
+</ul>
+
+<p>ES6 solved many of these problems.</p> -->
+
+<h3>Why developers prefer ES6</h3>
+
+<p class="mb-15">Because it:</p>
+
+<ul class="ml-40">
+  <li>reduces bugs</li>
+  <li>improves readability</li>
+  <li>supports modern frameworks like React, Angular, and Vue.js</li>
+  <li>makes large applications manageable</li>
+  <li>provides modern programming features similar to Python/Java/C#</li>
+</ul>
+
+improves readability
+supports modern frameworks like:
+React
+Angular
+Vue.js
+makes large applications manageable
+provides modern programming features similar to Python/Java/C#
+</div>
+
+<!-- VAR LET CONST -->
+<div class="card" id="varletconst">
+
+<h2>1. var vs let vs const</h2>
+
+<div class="desc">
+This feature introduces proper variable scoping in JavaScript. It is one of the most critical improvements in ES6 because it directly affects how variables behave inside blocks, loops, and functions.
+</div>
+
+<h3>Why we use it?</h3>
+
+<p>
+Before ES6, developers faced unpredictable behavior due to <b>var</b>. ES6 fixed this by introducing:
+</p>
+
+<ul>
+<li>Block-level scope control</li>
+<li>Prevention of accidental redeclaration</li>
+<li>Safer and more predictable code execution</li>
+</ul>
+
+<div class="section-gap"></div>
+
+<h3>Before ES6 (var behavior problem)</h3>
+
+<pre>
+var x = 100;
+
+if(true){
+  var x = 200;
+}
+
+console.log(x);
+</pre>
+
+<div class="output">
+Output: 200
+</div>
+
+<p>
+👉 Problem: var ignores block scope and overrides outer value.
+</p>
+
+<div class="section-gap"></div>
+
+<h3>ES6 Solution (let & const)</h3>
+
+<pre>
+let x = 100;
+
+if(true){
+  let x = 200;
+  console.log("Inside block:", x);
+}
+
+console.log("Outside block:", x);
+</pre>
+
+<div class="output">
+Output:<br>
+Inside block: 200<br>
+Outside block: 100
+</div>
+
+<div class="section-gap"></div>
+
+<h3>const behavior example</h3>
+
+<pre>
+const API_URL = "https://api.example.com";
+
+console.log(API_URL);
+</pre>
+
+<div class="output">
+Output: https://api.example.com
+</div>
+
+<div class="section-gap"></div>
+
+<h3>Key Differences (Important)</h3>
+
+<ul>
+<li><b>var</b> → function scoped, can redeclare, unsafe in large apps</li>
+<li><b>let</b> → block scoped, can reassign, safer</li>
+<li><b>const</b> → block scoped, cannot reassign (recommended default) But we can use it for objects and arrays to modify their properties</li>
+</ul>
+
+<div class="section-gap"></div>
+
+<h3>Summary</h3>
+
+<div class="summary">
+ES6 introduced let and const to eliminate scope-related bugs. In modern JavaScript, var is avoided completely. Always prefer const by default and use let only when reassignment is needed.
+</div>
+
+</div>
+
+
+<div class="card" id="arrow">
+
+<h2>2. Arrow Functions</h2>
+
+<div class="desc">
+Arrow functions are a modern ES6 syntax for writing functions in a shorter and cleaner way. They also behave differently from normal functions in how they handle <b>this keyword</b>.
+</div>
+
+<h3>Why we use Arrow Functions?</h3>
+
+<ul>
+<li>Shorter syntax compared to normal functions</li>
+<li>Improves readability in callbacks</li>
+<li>No own <b>this</b> binding (important behavior)</li>
+<li>Commonly used in React, Promises, Array methods</li>
+</ul>
+
+<div class="section-gap"></div>
+
+<h3>Before ES6 (Normal Function)</h3>
+
+<pre>
+function add(a, b) {
+  return a + b;
+}
+
+console.log(add(5, 3));
+</pre>
+
+<div class="output">
+Output: 8
+</div>
+
+<div class="section-gap"></div>
+
+<h3>ES6 Arrow Function</h3>
+
+<pre>
+const add = (a, b) => {
+  return a + b;
+};
+
+console.log(add(5, 3));
+</pre>
+
+<div class="output">
+Output: 8
+</div>
+
+<div class="section-gap"></div>
+
+<h3>Short Syntax (Implicit Return)</h3>
+
+<pre>
+const multiply = (a, b) => a * b;
+
+console.log(multiply(4, 2));
+</pre>
+
+<div class="output">
+Output: 8
+</div>
+
+<div class="section-gap"></div>
+
+<h3>Arrow Function with Single Parameter</h3>
+
+<pre>
+const square = x => x * x;
+
+console.log(square(6));
+</pre>
+
+<div class="output">
+Output: 36
+</div>
+
+<div class="section-gap"></div>
+
+<h3>Important Concept: this keyword difference</h3>
+
+<div class="desc">
+Arrow functions do NOT have their own <b>this</b>. They inherit <b>this</b> from the parent scope.
+</div>
+
+<h3>Normal Function (this behavior)</h3>
+
+<pre>
+const obj = {
+  name: "John",
+  show: function () {
+    console.log(this.name);
+  }
+};
+
+obj.show();
+</pre>
+
+<div class="output">
+Output: John
+</div>
+
+<div class="section-gap"></div>
+
+<h3>Arrow Function (this behavior)</h3>
+
+<pre>
+const obj = {
+  name: "John",
+  show: () => {
+    console.log(this.name);
+  }
+};
+
+obj.show();
+</pre>
+
+<div class="output">
+Output: undefined
+</div>
+
+<p>
+👉 Because arrow function does not have its own <b>this</b>
+</p>
+
+<div class="section-gap"></div>
+
+<h3>Real World Example (setTimeout issue fix)</h3>
+
+<pre>
+function Person() {
+  this.name = "Alex";
+
+  setTimeout(() => {
+    console.log(this.name);
+  }, 1000);
+}
+
+new Person();
+</pre>
+
+<div class="output">
+Output: Alex
+</div>
+
+<p>
+👉 Arrow function fixes <b>this binding problem</b> in async callbacks.
+</p>
+
+<div class="section-gap"></div>
+
+<h3>Summary</h3>
+
+<div class="summary">
+Arrow functions provide shorter syntax and solve common this binding issues. However, they should NOT be used when you need dynamic this (like object methods or constructors).
+</div>
+
+</div>
+
+<div class="card" id="template">
+
+<h2>3. Template Literals</h2>
+
+<div class="desc">
+Template literals (introduced in ES6) provide a cleaner and more powerful way to work with strings using backticks (`) instead of quotes.
+They support variables, expressions, and multi-line strings.
+</div>
+
+<h3>Why we use Template Literals?</h3>
+
+<ul>
+<li>Easy string interpolation (embed variables inside strings)</li>
+<li>Supports multi-line strings without concatenation</li>
+<li>Makes code more readable and maintainable</li>
+<li>Used heavily in API responses, UI rendering, and logging</li>
+</ul>
+
+<div class="section-gap"></div>
+
+<h3>Before ES6 (String Concatenation Problem)</h3>
+
+<pre>
+var name = "John";
+var age = 25;
+
+var message = "My name is " + name + " and I am " + age + " years old.";
+
+console.log(message);
+</pre>
+
+<div class="output">
+Output: My name is John and I am 25 years old.
+</div>
+
+<div class="section-gap"></div>
+
+<h3>ES6 Template Literals</h3>
+
+<pre>
+const name = "John";
+const age = 25;
+
+const message = `My name is ${name} and I am ${age} years old.`;
+
+console.log(message);
+</pre>
+
+<div class="output">
+Output: My name is John and I am 25 years old.
+</div>
+
+<div class="section-gap"></div>
+
+<h3>Expression inside Template Literals</h3>
+
+<pre>
+const a = 10;
+const b = 20;
+
+console.log(`Sum of a and b is ${a + b}`);
+</pre>
+
+<div class="output">
+Output: Sum of a and b is 30
+</div>
+
+<div class="section-gap"></div>
+
+<h3>Multi-line String (Before ES6)</h3>
+
+<pre>
+var text = "Line 1\n" +
+           "Line 2\n" +
+           "Line 3";
+
+console.log(text);
+</pre>
+
+<div class="output">
+Output:<br>
+Line 1<br>
+Line 2<br>
+Line 3
+</div>
+
+<div class="section-gap"></div>
+
+<h3>Multi-line String (ES6)</h3>
+
+<pre>
+const text = `
+Line 1
+Line 2
+Line 3
+`;
+
+console.log(text);
+</pre>
+
+<div class="output">
+Output:<br>
+Line 1<br>
+Line 2<br>
+Line 3
+</div>
+
+<div class="section-gap"></div>
+
+<h3>Real-world Usage Example (API / UI)</h3>
+
+<pre>
+const user = {
+  name: "Alex",
+  role: "Developer"
+};
+
+const card = `
+  User Info:
+  Name: ${user.name}
+  Role: ${user.role}
+`;
+
+console.log(card);
+</pre>
+
+<div class="output">
+Output:<br>
+User Info:<br>
+Name: Alex<br>
+Role: Developer
+</div>
+
+<div class="section-gap"></div>
+
+<h3>Summary</h3>
+
+<div class="summary">
+Template literals simplify string handling in JavaScript. They eliminate complex concatenation, support expressions, and make code much more readable—especially in dynamic UI rendering and API-based applications.
+</div>
+
+</div>
+
+<div class="card" id="destructuring">
+
+<h2>4. Destructuring (Objects & Arrays)</h2>
+
+<div class="desc">
+Destructuring is an ES6 feature that allows you to extract values from arrays or objects into separate variables in a clean and readable way.
+It reduces repetitive code and improves clarity.
+</div>
+
+<h3>Why we use Destructuring?</h3>
+
+<ul>
+<li>Reduces repetitive object.property access</li>
+<li>Makes code cleaner and shorter</li>
+<li>Very useful in API responses and React props</li>
+<li>Improves readability in large applications</li>
+</ul>
+
+<div class="section-gap"></div>
+
+<h3>Before ES6 (Object Access)</h3>
+
+<pre>
+const user = {
+  name: "John",
+  age: 25,
+  city: "London"
+};
+
+console.log(user.name);
+console.log(user.age);
+console.log(user.city);
+</pre>
+
+<div class="output">
+Output:<br>
+John<br>
+25<br>
+London
+</div>
+
+<div class="section-gap"></div>
+
+<h3>ES6 Object Destructuring</h3>
+
+<pre>
+const user = {
+  name: "John",
+  age: 25,
+  city: "London"
+};
+
+const { name, age, city } = user;
+
+console.log(name);
+console.log(age);
+console.log(city);
+</pre>
+
+<div class="output">
+Output:<br>
+John<br>
+25<br>
+London
+</div>
+
+<div class="section-gap"></div>
+
+<h3>Renaming Variables</h3>
+
+<pre>
+const user = {
+  name: "John",
+  age: 25
+};
+
+const { name: userName, age: userAge } = user;
+
+console.log(userName);
+console.log(userAge);
+</pre>
+
+<div class="output">
+Output:<br>
+John<br>
+25
+</div>
+
+<div class="section-gap"></div>
+
+<h3>Default Values</h3>
+
+<pre>
+const user = {
+  name: "Alex"
+};
+
+const { name, age = 30 } = user;
+
+console.log(name);
+console.log(age);
+</pre>
+
+<div class="output">
+Output:<br>
+Alex<br>
+30
+</div>
+
+<div class="section-gap"></div>
+
+<h3>Array Destructuring</h3>
+
+<pre>
+const colors = ["red", "green", "blue"];
+
+const [first, second, third] = colors;
+
+console.log(first);
+console.log(second);
+console.log(third);
+</pre>
+
+<div class="output">
+Output:<br>
+red<br>
+green<br>
+blue
+</div>
+
+<div class="section-gap"></div>
+
+<h3>Skipping Values in Array</h3>
+
+<pre>
+const numbers = [10, 20, 30, 40];
+
+const [a, , c] = numbers;
+
+console.log(a);
+console.log(c);
+</pre>
+
+<div class="output">
+Output:<br>
+10<br>
+30
+</div>
+
+<div class="section-gap"></div>
+
+<h3>Real-world API Example</h3>
+
+<pre>
+const response = {
+  status: 200,
+  data: {
+    user: "John",
+    role: "Admin"
+  }
+};
+
+const {
+  data: { user, role }
+} = response;
+
+console.log(user);
+console.log(role);
+</pre>
+
+<div class="output">
+Output:<br>
+John<br>
+Admin
+</div>
+
+<div class="section-gap"></div>
+
+<h3>Summary</h3>
+
+<div class="summary">
+Destructuring is a powerful ES6 feature that simplifies extracting values from objects and arrays. It reduces boilerplate code and is widely used in modern frameworks like React and Node.js for handling props and API responses.
+</div>
+
+</div>
+
+
+<div class="card" id="spreadrest">
+
+<h2>5. Spread & Rest Operators (...)</h2>
+
+<div class="desc">
+The <b>...</b> operator in ES6 is used for both Spread and Rest operations.
+Even though the syntax looks the same, their usage depends on the context.
+</div>
+
+<h3>Why we use Spread & Rest?</h3>
+
+<ul>
+<li>To copy or merge arrays and objects easily (Spread)</li>
+<li>To collect multiple values into a single variable (Rest)</li>
+<li>Used heavily in React state updates and function arguments</li>
+</ul>
+
+<div class="section-gap"></div>
+
+<h3>1. Spread Operator (Arrays)</h3>
+
+<div class="desc">
+Spread is used to expand elements of an array.
+</div>
+
+<h4>Before ES6 (manual merging)</h4>
+
+<pre>
+const arr1 = [1, 2];
+const arr2 = [3, 4];
+
+const result = arr1.concat(arr2);
+
+console.log(result);
+</pre>
+
+<div class="output">
+Output: [1, 2, 3, 4]
+</div>
+
+<h4>ES6 (Spread Operator)</h4>
+
+<pre>
+const arr1 = [1, 2];
+const arr2 = [3, 4];
+
+const result = [...arr1, ...arr2];
+
+console.log(result);
+</pre>
+
+<div class="output">
+Output: [1, 2, 3, 4]
+</div>
+
+<div class="section-gap"></div>
+
+<h3>2. Spread Operator (Objects)</h3>
+
+<pre>
+const user = {
+  name: "John",
+  age: 25
+};
+
+const updatedUser = {
+  ...user,
+  city: "London"
+};
+
+console.log(updatedUser);
+</pre>
+
+<div class="output">
+Output: { name: "John", age: 25, city: "London" }
+</div>
+
+<div class="section-gap"></div>
+
+<h3>3. Copying Arrays (Important Use Case)</h3>
+
+<pre>
+const numbers = [10, 20, 30];
+
+const copy = [...numbers];
+
+console.log(copy);
+</pre>
+
+<div class="output">
+Output: [10, 20, 30]
+</div>
+
+<div class="section-gap"></div>
+
+<h3>4. Rest Operator (Function Arguments)</h3>
+
+<div class="desc">
+Rest operator collects multiple values into a single array.
+</div>
+
+<h4>Before ES6</h4>
+
+<pre>
+function sum() {
+  console.log(arguments);
+}
+
+sum(1, 2, 3);
+</pre>
+
+<div class="output">
+Output: Arguments object (not a real array)
+</div>
+
+<h4>ES6 Rest Operator</h4>
+
+<pre>
+function sum(...numbers) {
+  console.log(numbers);
+}
+
+sum(1, 2, 3, 4);
+</pre>
+
+<div class="output">
+Output: [1, 2, 3, 4]
+</div>
+
+<div class="section-gap"></div>
+
+<h3>5. Rest with Parameters</h3>
+
+<pre>
+function total(a, b, ...rest) {
+  console.log(a);
+  console.log(b);
+  console.log(rest);
+}
+
+total(10, 20, 30, 40, 50);
+</pre>
+
+<div class="output">
+Output:<br>
+10<br>
+20<br>
+[30, 40, 50]
+</div>
+
+<div class="section-gap"></div>
+
+<h3>Key Difference</h3>
+
+<ul>
+<li><b>Spread</b> → Expands values</li>
+<li><b>Rest</b> → Collects values</li>
+</ul>
+
+<div class="section-gap"></div>
+
+<h3>Summary</h3>
+
+<div class="summary">
+Spread and Rest operators simplify working with arrays, objects, and function parameters. Spread is used for copying and merging, while Rest is used for collecting multiple values into a single structure.
+</div>
+
+</div>
+
+<div class="card" id="modules">
+
+<h2>6. ES6 Modules (import / export)</h2>
+
+<div class="desc">
+ES6 Modules allow us to split JavaScript code into multiple files and reuse code easily using <b>export</b> and <b>import</b>.
+This makes applications more scalable and maintainable.
+</div>
+
+<h3>Why we use Modules?</h3>
+
+<ul>
+<li>Break large code into smaller files</li>
+<li>Improve code reusability</li>
+<li>Better maintainability</li>
+<li>Used in React, Node.js, modern frameworks</li>
+</ul>
+
+<div class="section-gap"></div>
+
+<h3>Before ES6 (Problem)</h3>
+
+<div class="desc">
+Before modules, all code was written in one file or global scope, which caused:
+</div>
+
+<ul>
+<li>Variable conflicts</li>
+<li>Difficult debugging</li>
+<li>Hard to maintain large applications</li>
+</ul>
+
+<pre>
+function add(a, b) {
+  return a + b;
+}
+
+function multiply(a, b) {
+  return a * b;
+}
+
+console.log(add(2, 3));
+console.log(multiply(2, 3));
+</pre>
+
+<div class="output">
+Output:<br>
+5<br>
+6
+</div>
+
+<div class="section-gap"></div>
+
+<h3>ES6 Solution (Modules)</h3>
+
+<div class="desc">
+Now we can split code into multiple files using export and import.
+</div>
+
+<h3>1. Named Export</h3>
+
+<pre>
+// math.js
+
+export function add(a, b) {
+  return a + b;
+}
+
+export function multiply(a, b) {
+  return a * b;
+}
+</pre>
+
+<div class="section-gap"></div>
+
+<h3>2. Importing Functions</h3>
+
+<pre>
+// main.js
+
+import { add, multiply } from "./math.js";
+
+console.log(add(2, 3));
+console.log(multiply(2, 3));
+</pre>
+
+<div class="output">
+Output:<br>
+5<br>
+6
+</div>
+
+<div class="section-gap"></div>
+
+<h3>3. Default Export</h3>
+
+<pre>
+// user.js
+
+export default function greet(name) {
+  return `Hello ${name}`;
+}
+</pre>
+
+<div class="section-gap"></div>
+
+<h3>Import Default Export</h3>
+
+<pre>
+// main.js
+
+import greet from "./user.js";
+
+console.log(greet("John"));
+</pre>
+
+<div class="output">
+Output: Hello John
+</div>
+
+<div class="section-gap"></div>
+
+<h3>4. Mixed Export Example</h3>
+
+<pre>
+// utils.js
+
+export const PI = 3.14;
+
+export default function square(x) {
+  return x * x;
+}
+</pre>
+
+<pre>
+// main.js
+
+import square, { PI } from "./utils.js";
+
+console.log(PI);
+console.log(square(4));
+</pre>
+
+<div class="output">
+Output:<br>
+3.14<br>
+16
+</div>
+
+<div class="section-gap"></div>
+
+<h3>Important Notes</h3>
+
+<ul>
+<li>Modules work only in modern browsers or Node.js</li>
+<li>Use <code>type="module"</code> in HTML script tag</li>
+<li>Each file is treated as a separate module</li>
+</ul>
+
+<div class="section-gap"></div>
+
+<h3>Summary</h3>
+
+<div class="summary">
+ES6 Modules allow developers to split code into reusable pieces using import and export. This improves scalability, readability, and maintainability of modern JavaScript applications.
+</div>
+
+</div>
+
+<div class="card" id="closures">
+
+<h2>7. Closures in JavaScript</h2>
+
+<div class="desc">
+A Closure is created when a function remembers variables from its outer scope even after the outer function has finished execution.
+</div>
+
+<h3>Why we use Closures?</h3>
+
+<ul>
+<li>To preserve data between function calls</li>
+<li>To create private variables (data hiding)</li>
+<li>Used in callbacks, event handlers, and React hooks</li>
+<li>Helps in building secure and modular code</li>
+</ul>
+
+<div class="section-gap"></div>
+
+<h3>Before Understanding Closures (Problem)</h3>
+
+<pre>
+function outer() {
+  let count = 0;
+  count++;
+  console.log(count);
+}
+
+outer();
+outer();
+outer();
+</pre>
+
+<div class="output">
+Output:<br>
+1<br>
+1<br>
+1
+</div>
+
+<p>
+👉 Problem: value resets every time function runs.
+</p>
+
+<div class="section-gap"></div>
+
+<h3>ES6 Concept: Closure Solution</h3>
+
+<pre>
+function outer() {
+  let count = 0;
+
+  return function () {
+    count++;
+    console.log(count);
+  };
+}
+
+const counter = outer();
+
+counter();
+counter();
+counter();
+</pre>
+
+<div class="output">
+Output:<br>
+1<br>
+2<br>
+3
+</div>
+
+<div class="section-gap"></div>
+
+<h3>How Closure Works (Concept)</h3>
+
+<div class="desc">
+The inner function "remembers" the variables of the outer function even after execution is completed.
+</div>
+
+<ul>
+<li>outer() runs once</li>
+<li>returns inner function</li>
+<li>inner function still has access to count</li>
+</ul>
+
+<div class="section-gap"></div>
+
+<h3>Real-world Example: Private Variable</h3>
+
+<pre>
+function bankAccount() {
+  let balance = 1000;
+
+  return {
+    deposit(amount) {
+      balance += amount;
+      console.log("Balance:", balance);
+    },
+    withdraw(amount) {
+      balance -= amount;
+      console.log("Balance:", balance);
+    }
+  };
+}
+
+const account = bankAccount();
+
+account.deposit(500);
+account.withdraw(200);
+</pre>
+
+<div class="output">
+Output:<br>
+Balance: 1500<br>
+Balance: 1300
+</div>
+
+<p>
+👉 balance is private and cannot be accessed directly.
+</p>
+
+<div class="section-gap"></div>
+
+<h3>Real-world Usage</h3>
+
+<ul>
+<li>Data encapsulation</li>
+<li>React hooks (useState behavior internally)</li>
+<li>Event listeners storing state</li>
+<li>Function factories</li>
+</ul>
+
+<div class="section-gap"></div>
+
+<h3>Summary</h3>
+
+<div class="summary">
+Closures allow a function to remember and access variables from its outer scope even after execution. They are powerful for data privacy, state management, and advanced JavaScript patterns.
+</div>
+
+</div>
+
+<div class="card" id="thiskeyword">
+
+<h2>8. this Keyword in JavaScript</h2>
+
+<div class="desc">
+The <b>this</b> keyword refers to the object it belongs to. However, its value depends on how and where the function is called.
+This makes it one of the most confusing topics in JavaScript.
+</div>
+
+<h3>Why we use "this"?</h3>
+
+<ul>
+<li>To access object properties inside methods</li>
+<li>To refer to current execution context</li>
+<li>Used in constructors and classes</li>
+<li>Important in event handling and callbacks</li>
+</ul>
+
+<div class="section-gap"></div>
+
+<h3>1. this in Global Scope</h3>
+
+<pre>
+console.log(this);
+</pre>
+
+<div class="output">
+Output: Window (Browser) / Global object (Node.js)
+</div>
+
+<p>
+👉 In global scope, this refers to the global object.
+</p>
+
+<div class="section-gap"></div>
+
+<h3>2. this inside Object Method</h3>
+
+<pre>
+const user = {
+  name: "John",
+  show: function () {
+    console.log(this.name);
+  }
+};
+
+user.show();
+</pre>
+
+<div class="output">
+Output: John
+</div>
+
+<p>
+👉 here this refers to the object itself (user)
+</p>
+
+<div class="section-gap"></div>
+
+<h3>3. this in Normal Function</h3>
+
+<pre>
+function test() {
+  console.log(this);
+}
+
+test();
+</pre>
+
+<div class="output">
+Output: Window / undefined (strict mode)
+</div>
+
+<p>
+👉 In normal functions, this depends on strict mode.
+</p>
+
+<div class="section-gap"></div>
+
+<h3>4. this Problem in Nested Function</h3>
+
+<pre>
+const user = {
+  name: "John",
+  show: function () {
+    function inner() {
+      console.log(this.name);
+    }
+    inner();
+  }
+};
+
+user.show();
+</pre>
+
+<div class="output">
+Output: undefined
+</div>
+
+<p>
+👉 inner function loses reference of object context.
+</p>
+
+<div class="section-gap"></div>
+
+<h3>5. Solution using Arrow Function</h3>
+
+<pre>
+const user = {
+  name: "John",
+  show: function () {
+    const inner = () => {
+      console.log(this.name);
+    };
+    inner();
+  }
+};
+
+user.show();
+</pre>
+
+<div class="output">
+Output: John
+</div>
+
+<p>
+👉 Arrow function inherits this from parent scope.
+</p>
+
+<div class="section-gap"></div>
+
+<h3>6. this with setTimeout Problem</h3>
+
+<pre>
+const user = {
+  name: "Alex",
+  show: function () {
+    setTimeout(function () {
+      console.log(this.name);
+    }, 1000);
+  }
+};
+
+user.show();
+</pre>
+
+<div class="output">
+Output: undefined
+</div>
+
+<div class="section-gap"></div>
+
+<h3>7. Fix using Arrow Function</h3>
+
+<pre>
+const user = {
+  name: "Alex",
+  show: function () {
+    setTimeout(() => {
+      console.log(this.name);
+    }, 1000);
+  }
+};
+
+user.show();
+</pre>
+
+<div class="output">
+Output: Alex
+</div>
+
+<div class="section-gap"></div>
+
+<h3>Summary</h3>
+
+<div class="summary">
+The value of "this" depends on execution context. Arrow functions do not have their own "this" and inherit it from parent scope, which helps solve many common JavaScript bugs.
+</div>
+
+</div>
+
+<div class="card" id="bindmethods">
+
+<h2>9. call / apply / bind in JavaScript</h2>
+
+<div class="desc">
+These three methods are used to control the value of <b>this</b> in functions. They allow us to borrow functions from one object and use them in another context.
+</div>
+
+<h3>Why we use call / apply / bind?</h3>
+
+<ul>
+<li>To explicitly set the value of this</li>
+<li>To reuse functions across objects</li>
+<li>To pass arguments in controlled ways</li>
+<li>Used in event handling and functional programming</li>
+</ul>
+
+<div class="section-gap"></div>
+
+<h3>1. call() Method</h3>
+
+<div class="desc">
+call() executes the function immediately with a given this value.
+</div>
+
+<pre>
+const user = {
+  name: "John"
+};
+
+function greet() {
+  console.log("Hello " + this.name);
+}
+
+greet.call(user);
+</pre>
+
+<div class="output">
+Output: Hello John
+</div>
+
+<div class="section-gap"></div>
+
+<h3>call() with arguments</h3>
+
+<pre>
+function intro(age) {
+  console.log(this.name + " is " + age + " years old");
+}
+
+const person = { name: "Alex" };
+
+intro.call(person, 25);
+</pre>
+
+<div class="output">
+Output: Alex is 25 years old
+</div>
+
+<div class="section-gap"></div>
+
+<h3>2. apply() Method</h3>
+
+<div class="desc">
+apply() is similar to call(), but arguments are passed as an array.
+</div>
+
+<pre>
+function intro(age, city) {
+  console.log(this.name + " is " + age + " from " + city);
+}
+
+const person = { name: "Sam" };
+
+intro.apply(person, [30, "London"]);
+</pre>
+
+<div class="output">
+Output: Sam is 30 from London
+</div>
+
+<div class="section-gap"></div>
+
+<h3>call vs apply difference</h3>
+
+<ul>
+<li><b>call()</b> → arguments passed individually</li>
+<li><b>apply()</b> → arguments passed as array</li>
+</ul>
+
+<div class="section-gap"></div>
+
+<h3>3. bind() Method</h3>
+
+<div class="desc">
+bind() does NOT execute immediately. It returns a new function with bound this value.
+</div>
+
+<pre>
+const user = {
+  name: "Emma"
+};
+
+function greet() {
+  console.log("Hello " + this.name);
+}
+
+const boundFunc = greet.bind(user);
+
+boundFunc();
+</pre>
+
+<div class="output">
+Output: Hello Emma
+</div>
+
+<div class="section-gap"></div>
+
+<h3>bind() with arguments</h3>
+
+<pre>
+function intro(age) {
+  console.log(this.name + " is " + age);
+}
+
+const person = { name: "David" };
+
+const bound = intro.bind(person, 28);
+
+bound();
+</pre>
+
+<div class="output">
+Output: David is 28
+</div>
+
+<div class="section-gap"></div>
+
+<h3>Real-world Usage Example</h3>
+
+<pre>
+const button = {
+  text: "Click Me",
+  click: function () {
+    console.log(this.text);
+  }
+};
+
+const btnClick = button.click.bind(button);
+
+btnClick();
+</pre>
+
+<div class="output">
+Output: Click Me
+</div>
+
+<div class="section-gap"></div>
+
+<h3>Summary</h3>
+
+<div class="summary">
+call and apply execute functions immediately with controlled this, while bind returns a new function. These methods are essential for controlling execution context in JavaScript.
+</div>
+
+</div>
+
+<div class="card" id="pureimmutability">
+
+<h2>10. Pure Functions & Immutability</h2>
+
+<div class="desc">
+These are core concepts of functional programming in JavaScript. They help in writing predictable, bug-free, and maintainable code.
+</div>
+
+<h3>Why we use them?</h3>
+
+<ul>
+<li>To avoid unexpected side effects</li>
+<li>To make code predictable and testable</li>
+<li>Used heavily in React and Redux</li>
+<li>Improves performance and debugging</li>
+</ul>
+
+<div class="section-gap"></div>
+
+<h2>1. Pure Functions</h2>
+
+<div class="desc">
+A pure function always returns the same output for the same input and does not modify external state.
+</div>
+
+<h3>Example of Pure Function</h3>
+
+<pre>
+function add(a, b) {
+  return a + b;
+}
+
+console.log(add(2, 3));
+console.log(add(2, 3));
+</pre>
+
+<div class="output">
+Output:<br>
+5<br>
+5
+</div>
+
+<div class="section-gap"></div>
+
+<h3>Impure Function Example</h3>
+
+<pre>
+let total = 0;
+
+function addToTotal(value) {
+  total += value;
+  return total;
+}
+
+console.log(addToTotal(5));
+console.log(addToTotal(5));
+</pre>
+
+<div class="output">
+Output:<br>
+5<br>
+10
+</div>
+
+<p>
+👉 Problem: Output depends on external state (not predictable)
+</p>
+
+<div class="section-gap"></div>
+
+<h2>2. Immutability</h2>
+
+<div class="desc">
+Immutability means not changing original data. Instead, we create a new copy with modifications.
+</div>
+
+<h3>Before ES6 (Mutating data)</h3>
+
+<pre>
+const user = {
+  name: "John",
+  age: 25
+};
+
+user.age = 30;
+
+console.log(user);
+</pre>
+
+<div class="output">
+Output: { name: "John", age: 30 }
+</div>
+
+<div class="section-gap"></div>
+
+<h3>ES6 Way (Immutability)</h3>
+
+<pre>
+const user = {
+  name: "John",
+  age: 25
+};
+
+const updatedUser = {
+  ...user,
+  age: 30
+};
+
+console.log(updatedUser);
+</pre>
+
+<div class="output">
+Output: { name: "John", age: 30 }
+</div>
+
+<div class="section-gap"></div>
+
+<h3>Immutability with Arrays</h3>
+
+<pre>
+const numbers = [1, 2, 3];
+
+const newNumbers = [...numbers, 4];
+
+console.log(newNumbers);
+</pre>
+
+<div class="output">
+Output: [1, 2, 3, 4]
+</div>
+
+<div class="section-gap"></div>
+
+<h3>Real-world Usage</h3>
+
+<ul>
+<li>React state updates</li>
+<li>Redux reducers</li>
+<li>Functional programming patterns</li>
+<li>Predictable data flow systems</li>
+</ul>
+
+<div class="section-gap"></div>
+
+<h3>Summary</h3>
+
+<div class="summary">
+Pure functions ensure predictable behavior without side effects, while immutability prevents direct data modification. Together, they form the foundation of modern JavaScript architecture.
+</div>
+
+</div>
+
+<div class="card" id="promises">
+
+<h2>11. Promises in JavaScript</h2>
+
+<div class="desc">
+A Promise in JavaScript is an object that represents the eventual completion (or failure) of an asynchronous operation.
+It is used to handle async tasks like API calls, file loading, and database operations.
+</div>
+
+<h3>Why we use Promises?</h3>
+
+<ul>
+<li>To handle asynchronous operations cleanly</li>
+<li>To avoid callback hell</li>
+<li>To make code more readable and structured</li>
+<li>Used in API calls (fetch, axios, etc.)</li>
+</ul>
+
+<div class="section-gap"></div>
+
+<h3>Before Promises (Callback Hell Problem)</h3>
+
+<pre>
+setTimeout(() => {
+  console.log("Step 1");
+
+  setTimeout(() => {
+    console.log("Step 2");
+
+    setTimeout(() => {
+      console.log("Step 3");
+    }, 1000);
+
+  }, 1000);
+
+}, 1000);
+</pre>
+
+<div class="output">
+Output:<br>
+Step 1<br>
+Step 2<br>
+Step 3
+</div>
+
+<p>
+👉 Problem: deeply nested callbacks become hard to maintain.
+</p>
+
+<div class="section-gap"></div>
+
+<h3>1. Creating a Promise</h3>
+
+<pre>
+const myPromise = new Promise((resolve, reject) => {
+
+  let success = true;
+
+  if (success) {
+    resolve("Operation Successful");
+  } else {
+    reject("Operation Failed");
+  }
+
+});
+
+console.log(myPromise);
+</pre>
+
+<div class="output">
+Output: Promise { "Operation Successful" }
+</div>
+
+<div class="section-gap"></div>
+
+<h3>2. Handling Promise (then / catch)</h3>
+
+<pre>
+myPromise
+  .then((result) => {
+    console.log(result);
+  })
+  .catch((error) => {
+    console.log(error);
+  });
+</pre>
+
+<div class="output">
+Output: Operation Successful
+</div>
+
+<div class="section-gap"></div>
+
+<h3>3. Promise States</h3>
+
+<ul>
+<li><b>Pending</b> → Initial state</li>
+<li><b>Fulfilled</b> → Operation successful</li>
+<li><b>Rejected</b> → Operation failed</li>
+</ul>
+
+<div class="section-gap"></div>
+
+<h3>4. Real-world Example (API Simulation)</h3>
+
+<pre>
+function fetchData() {
+  return new Promise((resolve, reject) => {
+
+    setTimeout(() => {
+      resolve("Data fetched from server");
+    }, 2000);
+
+  });
+}
+
+fetchData()
+  .then((data) => {
+    console.log(data);
+  });
+</pre>
+
+<div class="output">
+Output (after 2 sec): Data fetched from server
+</div>
+
+<div class="section-gap"></div>
+
+<h3>5. Promise Chaining</h3>
+
+<pre>
+function step1() {
+  return new Promise(resolve => {
+    resolve("Step 1 completed");
+  });
+}
+
+function step2() {
+  return new Promise(resolve => {
+    resolve("Step 2 completed");
+  });
+}
+
+step1()
+  .then((res) => {
+    console.log(res);
+    return step2();
+  })
+  .then((res) => {
+    console.log(res);
+  });
+</pre>
+
+<div class="output">
+Output:<br>
+Step 1 completed<br>
+Step 2 completed
+</div>
+
+
+<h3>Promise Combinators Summary</h3>
+
+<div>
+<ul>
+<li><b>Promise.all()</b> → All must succeed</li>
+<li><b>Promise.allSettled()</b> → Wait for all results</li>
+<li><b>Promise.race()</b> → First completed wins</li>
+<li><b>Promise.any()</b> → First successful wins</li>
+</ul>
+</div>
+<div class="section-gap"></div>
+
+<h3>Summary</h3>
+
+<div class="summary">
+Promises are used to handle asynchronous operations in a structured way. They replace callback hell with cleaner chaining using then and catch, making code more readable and maintainable.
+</div>
+
+</div>
+
+<div class="card" id="asyncawait">
+
+<h2>12. Async / Await in JavaScript</h2>
+
+<div class="desc">
+Async/Await is a modern way to handle asynchronous operations in JavaScript.
+It is built on top of Promises and makes async code look like synchronous code.
+</div>
+
+<h3>Why we use Async / Await?</h3>
+
+<ul>
+<li>Makes code more readable and cleaner</li>
+<li>Removes .then() chaining complexity</li>
+<li>Easier error handling using try/catch</li>
+<li>Used in API calls and backend operations</li>
+</ul>
+
+<div class="section-gap"></div>
+
+<h3>Before Async/Await (Promise Style)</h3>
+
+<pre>
+function fetchData() {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve("Data received");
+    }, 2000);
+  });
+}
+
+fetchData().then((data) => {
+  console.log(data);
+});
+</pre>
+
+<div class="output">
+Output (after 2 sec): Data received
+</div>
+
+<div class="section-gap"></div>
+
+<h3>ES6+ Async / Await Version</h3>
+
+<pre>
+function fetchData() {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve("Data received");
+    }, 2000);
+  });
+}
+
+async function getData() {
+  const result = await fetchData();
+  console.log(result);
+}
+
+getData();
+</pre>
+
+<div class="output">
+Output (after 2 sec): Data received
+</div>
+
+<div class="section-gap"></div>
+
+<h3>How Async / Await Works</h3>
+
+<ul>
+<li><b>async</b> → makes a function return a Promise</li>
+<li><b>await</b> → pauses execution until Promise is resolved</li>
+</ul>
+
+<div class="section-gap"></div>
+
+<h3>Async Function Example</h3>
+
+<pre>
+async function example() {
+  return "Hello World";
+}
+
+example().then((res) => {
+  console.log(res);
+});
+</pre>
+
+<div class="output">
+Output: Hello World
+</div>
+
+<div class="section-gap"></div>
+
+<h3>Error Handling (try / catch)</h3>
+
+<pre>
+async function fetchData() {
+  return new Promise((resolve, reject) => {
+    reject("Error occurred!");
+  });
+}
+
+async function getData() {
+  try {
+    const result = await fetchData();
+    console.log(result);
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+getData();
+</pre>
+
+<div class="output">
+Output: Error occurred!
+</div>
+
+<div class="section-gap"></div>
+
+<h3>Multiple Await Example</h3>
+
+<pre>
+function step1() {
+  return new Promise(resolve => {
+    setTimeout(() => resolve("Step 1 done"), 1000);
+  });
+}
+
+function step2() {
+  return new Promise(resolve => {
+    setTimeout(() => resolve("Step 2 done"), 1000);
+  });
+}
+
+async function runSteps() {
+  const a = await step1();
+  console.log(a);
+
+  const b = await step2();
+  console.log(b);
+}
+
+runSteps();
+</pre>
+
+<div class="output">
+Output:<br>
+Step 1 done<br>
+Step 2 done
+</div>
+
+<div class="section-gap"></div>
+
+<h3>Summary</h3>
+
+<div class="summary">
+Async/Await simplifies asynchronous programming by making code look synchronous. It improves readability, reduces complexity, and is now the standard for handling async operations in modern JavaScript.
+</div>
+
+</div>
+
+<div class="card" id="execution">
+
+<h2>13. Execution Context & Call Stack</h2>
+
+<div class="desc">
+Execution Context is the environment where JavaScript code is executed.
+Call Stack is a structure that manages the execution of functions in a Last In First Out (LIFO) order.
+</div>
+
+<h3>Why we need Execution Context?</h3>
+
+<ul>
+<li>To understand how JavaScript runs code internally</li>
+<li>To manage function execution order</li>
+<li>To handle memory creation and execution phases</li>
+</ul>
+
+<div class="section-gap"></div>
+
+<h3>1. Execution Context Phases</h3>
+
+<ul>
+<li><b>Creation Phase</b> → Memory is allocated for variables and functions</li>
+<li><b>Execution Phase</b> → Code is executed line by line</li>
+</ul>
+
+<div class="section-gap"></div>
+
+<h3>Example Code</h3>
+
+<pre>
+var a = 10;
+
+function add(b) {
+  var result = a + b;
+  return result;
+}
+
+var sum = add(5);
+
+console.log(sum);
+</pre>
+
+<div class="section-gap"></div>
+
+<h3>Step-by-step Execution</h3>
+
+<div class="desc">
+1. Global Execution Context is created<br>
+2. Variables (a, add, sum) are stored in memory phase<br>
+3. Execution starts line by line<br>
+4. add(5) creates a new function execution context<br>
+5. Result is calculated and returned<br>
+</div>
+
+<div class="section-gap"></div>
+
+<h3>2. Call Stack Concept</h3>
+
+<div class="desc">
+Call Stack is like a stack of plates. The last function pushed is the first one executed.
+</div>
+
+<h4>Call Stack Flow Example</h4>
+
+<pre>
+function first() {
+  console.log("First");
+  second();
+}
+
+function second() {
+  console.log("Second");
+  third();
+}
+
+function third() {
+  console.log("Third");
+}
+
+first();
+</pre>
+
+<div class="output">
+Output:<br>
+First<br>
+Second<br>
+Third
+</div>
+
+<div class="section-gap"></div>
+
+<h3>Call Stack Flow Explanation</h3>
+
+<ul>
+<li>first() → pushed into stack</li>
+<li>second() → pushed inside first()</li>
+<li>third() → pushed inside second()</li>
+<li>then execution unwinds in reverse order</li>
+</ul>
+
+<div class="section-gap"></div>
+
+<h3>3. Stack Visualization Idea</h3>
+
+<div class="desc">
+Call Stack works like:
+<br><br>
+first() → second() → third()<br>
+then:<br>
+third() → second() → first()
+</div>
+
+<div class="section-gap"></div>
+
+<h3>4. Stack Overflow Example</h3>
+
+<pre>
+function test() {
+  test();
+}
+
+test();
+</pre>
+
+<div class="output">
+Output: Maximum call stack size exceeded
+</div>
+
+<p>
+👉 Infinite recursion fills the call stack and causes crash.
+</p>
+
+<div class="section-gap"></div>
+
+<h3>Summary</h3>
+
+<div class="summary">
+Execution Context defines how JavaScript code is executed in memory and runtime phases.
+Call Stack manages function execution order using LIFO structure. Understanding this is essential to master JavaScript internals.
+</div>
+
+</div>
+
+<div class="card" id="eventloop">
+
+<h2>14. Event Loop in JavaScript</h2>
+
+<div class="desc">
+The Event Loop is a mechanism that allows JavaScript to handle asynchronous operations even though it is single-threaded.
+It connects the Call Stack, Web APIs, Callback Queue, and Microtask Queue.
+</div>
+
+<h3>Why we need Event Loop?</h3>
+
+<ul>
+<li>JavaScript is single-threaded (one task at a time)</li>
+<li>Helps handle asynchronous tasks (API calls, timers)</li>
+<li>Ensures non-blocking execution</li>
+</ul>
+
+<div class="section-gap"></div>
+
+<h3>Core Components</h3>
+
+<ul>
+<li><b>Call Stack</b> → Executes functions</li>
+<li><b>Web APIs</b> → Handles async tasks (setTimeout, fetch)</li>
+<li><b>Callback Queue</b> → Stores completed async callbacks</li>
+<li><b>Microtask Queue</b> → Stores Promises (higher priority)</li>
+<li><b>Event Loop</b> → Moves tasks into Call Stack</li>
+</ul>
+
+<div class="section-gap"></div>
+
+<h3>Example Code</h3>
+
+<pre>
+console.log("Start");
+
+setTimeout(() => {
+  console.log("Timeout");
+}, 0);
+
+console.log("End");
+</pre>
+
+<div class="output">
+Output:<br>
+Start<br>
+End<br>
+Timeout
+</div>
+
+<div class="section-gap"></div>
+
+<h3>How it works (Step-by-step)</h3>
+
+<ul>
+<li>"Start" goes to Call Stack → executes immediately</li>
+<li>setTimeout goes to Web API</li>
+<li>"End" executes next</li>
+<li>setTimeout callback moves to Callback Queue</li>
+<li>Event Loop pushes it to Call Stack when empty</li>
+</ul>
+
+<div class="section-gap"></div>
+
+<h3>Microtask vs Callback Queue</h3>
+
+<pre>
+console.log("Start");
+
+setTimeout(() => {
+  console.log("Timeout");
+}, 0);
+
+Promise.resolve().then(() => {
+  console.log("Promise");
+});
+
+console.log("End");
+</pre>
+
+<div class="output">
+Output:<br>
+Start<br>
+End<br>
+Promise<br>
+Timeout
+</div>
+
+<div class="section-gap"></div>
+
+<h3>Important Insight</h3>
+
+<div class="desc">
+Microtasks (Promises) always execute before Callback Queue (setTimeout), even if delay is 0.
+</div>
+
+<div class="section-gap"></div>
+
+<h3>Real-world Example</h3>
+
+<pre>
+console.log("User Login");
+
+setTimeout(() => {
+  console.log("Fetching user data...");
+}, 1000);
+
+console.log("UI Loaded");
+</pre>
+
+<div class="output">
+Output:<br>
+User Login<br>
+UI Loaded<br>
+Fetching user data...
+</div>
+
+<div class="section-gap"></div>
+
+<h3>Summary</h3>
+
+<div class="summary">
+The Event Loop enables JavaScript to perform asynchronous operations efficiently. It continuously monitors the Call Stack and queues, ensuring non-blocking execution and proper task ordering.
+</div>
+
+</div>
+
+<div class="card" id="debounce">
+
+<h2>15. Debouncing</h2>
+
+<div class="desc">
+Debouncing is a performance optimization technique used to control how often a function is executed when events fire repeatedly (like scroll, resize, keypress).
+</div>
+
+<h3>Why we use them?</h3>
+
+<ul>
+<li>To improve performance</li>
+<li>To reduce unnecessary API calls</li>
+<li>To prevent function over-execution</li>
+<li>Used in search bars, scroll events, resizing</li>
+</ul>
+
+<div class="section-gap"></div>
+
+<h2>1. Debouncing</h2>
+
+<div class="desc">
+Debouncing ensures that a function is executed only after a certain delay once the event stops firing.
+</div>
+
+<h3>Example: Search Input</h3>
+
+<pre>
+let timer;
+
+function searchData(query) {
+  console.log("Searching:", query);
+}
+
+function debounceSearch(value) {
+  clearTimeout(timer);
+
+  timer = setTimeout(() => {
+    searchData(value);
+  }, 1000);
+}
+
+debounceSearch("H");
+debounceSearch("He");
+debounceSearch("Hel");
+debounceSearch("Hell");
+debounceSearch("Hello");
+</pre>
+
+<div class="output">
+Output (after 1 sec pause): Searching: Hello
+</div>
+
+<p>
+👉 Only the final input is processed after user stops typing.
+</p>
+
+<div class="section-gap"></div>
+
+<!-- <h2>2. Throttling</h2>
+
+<div class="desc">
+Throttling ensures that a function is executed at regular intervals, even if the event keeps firing continuously.
+</div>
+
+<h3>Example: Scroll Event</h3>
+
+<pre>
+let lastCall = 0;
+
+function throttleFunction() {
+  let now = new Date().getTime();
+
+  if (now - lastCall >= 1000) {
+    console.log("Function executed");
+    lastCall = now;
+  }
+}
+
+window.addEventListener("scroll", throttleFunction);
+</pre>
+
+<div class="output">
+Output: Function executes once every 1 second during scrolling
+</div>
+
+<div class="section-gap"></div>
+
+<h3>Difference Between Debounce & Throttle</h3>
+
+<ul>
+<li><b>Debounce</b> → Runs after user stops action</li>
+<li><b>Throttle</b> → Runs at fixed intervals during action</li>
+</ul> -->
+
+<div class="section-gap"></div>
+
+<h3>Real-world Usage</h3>
+
+<ul>
+<li>Search suggestions (Debounce)</li>
+<li>Button spam prevention (Debounce)</li>
+<!-- <li>Scroll tracking (Throttle)</li>
+<li>Resize event handling (Throttle)</li> -->
+</ul>
+
+<div class="section-gap"></div>
+
+<h3>Summary</h3>
+
+<div class="summary">
+Debouncing and Throttling are performance optimization techniques used to control function execution rate. Debounce waits for inactivity, while throttle limits execution frequency.
+</div>
+
+</div>
+
+<!-- <div class="card" id="prototype">
+
+<h2>16. Prototype & Inheritance</h2>
+
+<div class="desc">
+In JavaScript, every object has a hidden property called <b>prototype</b>. It allows objects to inherit properties and methods from other objects.
+This is the foundation of inheritance in JavaScript.
+</div>
+
+<h3>Why we use Prototype?</h3>
+
+<ul>
+<li>To share methods across objects</li>
+<li>To avoid memory duplication</li>
+<li>To implement inheritance</li>
+<li>Core concept behind JavaScript OOP model</li>
+</ul>
+
+<div class="section-gap"></div>
+
+<h3>1. Basic Object Example (No Prototype use)</h3>
+
+<pre>
+const user1 = {
+  name: "John",
+  greet: function () {
+    console.log("Hello " + this.name);
+  }
+};
+
+const user2 = {
+  name: "Alex",
+  greet: function () {
+    console.log("Hello " + this.name);
+  }
+};
+
+user1.greet();
+user2.greet();
+</pre>
+
+<div class="output">
+Output:<br>
+Hello John<br>
+Hello Alex
+</div>
+
+<p>
+👉 Problem: Same function is duplicated in memory
+</p>
+
+<div class="section-gap"></div>
+
+<h3>2. Solution using Prototype</h3>
+
+<pre>
+function User(name) {
+  this.name = name;
+}
+
+User.prototype.greet = function () {
+  console.log("Hello " + this.name);
+};
+
+const user1 = new User("John");
+const user2 = new User("Alex");
+
+user1.greet();
+user2.greet();
+</pre>
+
+<div class="output">
+Output:<br>
+Hello John<br>
+Hello Alex
+</div>
+
+<div class="section-gap"></div>
+
+<h3>How Prototype Works</h3>
+
+<div class="desc">
+When a property or method is not found in an object, JavaScript looks into its prototype chain.
+</div>
+
+<ul>
+<li>Object → checks itself first</li>
+<li>If not found → checks prototype</li>
+<li>Then prototype's prototype (chain continues)</li>
+</ul>
+
+<div class="section-gap"></div>
+
+<h3>3. Prototype Chain Example</h3>
+
+<pre>
+const arr = [1, 2, 3];
+
+console.log(arr.push(4));
+console.log(arr.length);
+</pre>
+
+<div class="output">
+Output:<br>
+4<br>
+4
+</div>
+
+<p>
+👉 Arrays inherit methods from Array.prototype
+</p>
+
+<div class="section-gap"></div>
+
+<h3>4. Inheritance Example</h3>
+
+<pre>
+function Animal(name) {
+  this.name = name;
+}
+
+Animal.prototype.speak = function () {
+  console.log(this.name + " makes a sound");
+};
+
+function Dog(name) {
+  Animal.call(this, name);
+}
+
+Dog.prototype = Object.create(Animal.prototype);
+
+const dog = new Dog("Buddy");
+
+dog.speak();
+</pre>
+
+<div class="output">
+Output: Buddy makes a sound
+</div>
+
+<div class="section-gap"></div>
+
+<h3>5. Important Concept</h3>
+
+<ul>
+<li>Every object has a prototype</li>
+<li>Functions have prototype property</li>
+<li>Objects inherit from prototype chain</li>
+</ul>
+
+<div class="section-gap"></div>
+
+<h3>Summary</h3>
+
+<div class="summary">
+Prototype is the core mechanism of inheritance in JavaScript. It allows objects to share methods efficiently through a prototype chain, reducing memory usage and enabling object-oriented patterns.
+</div>
+
+</div> -->
+
+<div class="card" id="hoisting">
+
+<h2>17. Hoisting in JavaScript</h2>
+
+<div class="desc">
+Hoisting is JavaScript's default behavior of moving declarations (variables and functions) to the top of their scope before code execution.
+</div>
+
+<h3>Why we use Hoisting concept?</h3>
+
+<ul>
+<li>To understand unexpected behavior in code execution</li>
+<li>To debug variable and function access issues</li>
+<li>To understand execution context better</li>
+</ul>
+
+<div class="section-gap"></div>
+
+<h3>1. Variable Hoisting (var)</h3>
+
+<pre>
+console.log(a);
+
+var a = 10;
+</pre>
+
+<div class="output">
+Output: undefined
+</div>
+
+<p>
+👉 Declaration is hoisted, but initialization is NOT.
+</p>
+
+<div class="section-gap"></div>
+
+<h3>How JavaScript interprets it</h3>
+
+<pre>
+var a;
+console.log(a);
+a = 10;
+</pre>
+
+<div class="section-gap"></div>
+
+<h3>2. let and const Hoisting</h3>
+
+<pre>
+console.log(b);
+
+let b = 20;
+</pre>
+
+<div class="output">
+Output: ReferenceError: Cannot access 'b' before initialization
+</div>
+
+<p>
+👉 let and const are hoisted but placed in Temporal Dead Zone (TDZ)
+</p>
+
+<div class="section-gap"></div>
+
+<h3>3. Function Hoisting</h3>
+
+<pre>
+greet();
+
+function greet() {
+  console.log("Hello World");
+}
+</pre>
+
+<div class="output">
+Output: Hello World
+</div>
+
+<p>
+👉 Function declarations are fully hoisted.
+</p>
+
+<div class="section-gap"></div>
+
+<h3>4. Function Expression Hoisting</h3>
+
+<pre>
+sayHello();
+
+var sayHello = function () {
+  console.log("Hello");
+};
+</pre>
+
+<div class="output">
+Output: TypeError: sayHello is not a function
+</div>
+
+<p>
+👉 Only variable declaration is hoisted, not the function assignment.
+</p>
+
+<div class="section-gap"></div>
+
+<h3>5. Hoisting Summary Table</h3>
+
+<ul>
+<li><b>var</b> → hoisted (undefined)</li>
+<li><b>let / const</b> → hoisted but in TDZ</li>
+<li><b>function declaration</b> → fully hoisted</li>
+<li><b>function expression</b> → not hoisted as function</li>
+</ul>
+
+<div class="section-gap"></div>
+
+<h3>Real-world Importance</h3>
+
+<ul>
+<li>Avoids confusion in variable usage</li>
+<li>Helps understand runtime errors</li>
+<li>Critical for debugging JS code</li>
+</ul>
+
+<div class="section-gap"></div>
+
+<h3>Summary</h3>
+
+<div class="summary">
+Hoisting is JavaScript's behavior of moving declarations to the top of their scope before execution. Understanding hoisting helps prevent common bugs and improves understanding of execution context.
+</div>
+
+</div>
+
+<div class="card" id="memoization">
+
+<h2>16. Memoization in JavaScript</h2>
+
+<div class="desc">
+Memoization is an optimization technique used to store the results of expensive function calls and return cached results when the same inputs occur again.
+</div>
+
+<h3>Why we use Memoization?</h3>
+
+<ul>
+<li>To avoid repeated calculations</li>
+<li>To improve performance of expensive operations</li>
+<li>Used in recursion optimization (like Fibonacci)</li>
+<li>Helps in caching API or computed results</li>
+</ul>
+
+<div class="section-gap"></div>
+
+<h3>Without Memoization (Slow Execution)</h3>
+
+<pre>
+function slowAdd(n) {
+  console.log("Calculating...");
+  return n + 10;
+}
+
+console.log(slowAdd(5));
+console.log(slowAdd(5));
+console.log(slowAdd(5));
+</pre>
+
+<div class="output">
+Output:<br>
+Calculating... 15<br>
+Calculating... 15<br>
+Calculating... 15
+</div>
+
+<p>
+👉 Problem: Same calculation happens again and again.
+</p>
+
+<div class="section-gap"></div>
+
+<h3>With Memoization (Optimized)</h3>
+
+<pre>
+function memoizedAdd() {
+  let cache = {};
+
+  return function (n) {
+    if (cache[n]) {
+      console.log("From Cache");
+      return cache[n];
+    } else {
+      console.log("Calculating...");
+      let result = n + 10;
+      cache[n] = result;
+      return result;
+    }
+  };
+}
+
+const add = memoizedAdd();
+
+console.log(add(5));
+console.log(add(5));
+console.log(add(5));
+</pre>
+
+<div class="output">
+Output:<br>
+Calculating... 15<br>
+From Cache 15<br>
+From Cache 15
+</div>
+
+<div class="section-gap"></div>
+
+<h3>How Memoization Works</h3>
+
+<ul>
+<li>Stores results in a cache object</li>
+<li>Checks cache before computing</li>
+<li>Returns cached result if available</li>
+<li>Uses closures to persist cache memory</li>
+</ul>
+
+<div class="section-gap"></div>
+<!-- 
+<h3>Real-world Example (Fibonacci Optimization)</h3>
+
+<pre>
+function fibMemo() {
+  let cache = {};
+
+  return function fib(n) {
+    if (n in cache) return cache[n];
+
+    if (n <= 1) return n;
+
+    cache[n] = fib(n - 1) + fib(n - 2);
+    return cache[n];
+  };
+}
+
+const fib = fibMemo();
+
+console.log(fib(6));
+console.log(fib(6));
+</pre>
+
+<div class="output">
+Output:<br>
+8<br>
+8
+</div>
+
+<div class="section-gap"></div> -->
+
+<h3>Key Idea</h3>
+
+<div class="desc">
+Memoization improves performance by avoiding repeated execution of expensive functions using cached results.
+</div>
+
+<div class="section-gap"></div>
+
+<h3>Summary</h3>
+
+<div class="summary">
+Memoization is a powerful optimization technique that uses caching to store function results. It significantly improves performance in repetitive or computationally expensive operations.
+</div>
+
+</div>
+
+<div class="card" id="oop">
+
+<h2>17. OOP Concepts in JavaScript</h2>
+
+<div class="desc">
+Object-Oriented Programming (OOP) is a programming paradigm based on objects and classes. It helps structure code in a modular, reusable, and scalable way.
+JavaScript supports OOP using prototypes and ES6 classes.
+</div>
+
+<h3>Why we use OOP?</h3>
+
+<ul>
+<li>To structure large applications</li>
+<li>To improve code reusability</li>
+<li>To model real-world entities</li>
+<li>To make code scalable and maintainable</li>
+</ul>
+
+<div class="section-gap"></div>
+
+<h2>1. Basic Object Example</h2>
+
+<pre>
+const user = {
+  name: "John",
+  age: 25,
+  greet() {
+    console.log("Hello " + this.name);
+  }
+};
+
+user.greet();
+</pre>
+
+<div class="output">
+Output: Hello John
+</div>
+
+<div class="section-gap"></div>
+
+<h2>2. Constructor Function (Before ES6 Classes)</h2>
+
+<pre>
+function Person(name, age) {
+  this.name = name;
+  this.age = age;
+
+  this.greet = function () {
+    console.log("Hi " + this.name);
+  };
+}
+
+const p1 = new Person("Alex", 30);
+const p2 = new Person("John", 25);
+
+p1.greet();
+p2.greet();
+</pre>
+
+<div class="output">
+Output:<br>
+Hi Alex<br>
+Hi John
+</div>
+
+<p>
+👉 Each object gets its own copy of methods (not memory efficient)
+</p>
+
+<div class="section-gap"></div>
+
+
+<h2>3. ES6 Classes (Modern OOP)</h2>
+
+
+<table border="1" cellpadding="10" cellspacing="0" style="width: 100%; margin: 10px;">
+  <thead>
+    <tr>
+      <th>Feature</th>
+      <th>Factory Function</th>
+      <th>Class</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr>
+      <td>Simple</td>
+      <td>✅</td>
+      <td>✅</td>
+    </tr>
+
+    <tr>
+      <td>Memory efficient</td>
+      <td>❌</td>
+      <td>✅</td>
+    </tr>
+
+    <tr>
+      <td>Inheritance</td>
+      <td>Harder</td>
+      <td>Easier</td>
+    </tr>
+
+    <tr>
+      <td>Large apps</td>
+      <td>Difficult</td>
+      <td>Organized</td>
+    </tr>
+  </tbody>
+</table>
+
+<pre>
+class Person {
+  constructor(name, age) {
+    this.name = name;
+    this.age = age;
+  }
+
+  greet() {
+    console.log("Hello " + this.name);
+  }
+}
+
+const p1 = new Person("Emma", 28);
+
+p1.greet();
+</pre>
+
+<div class="output">
+Output: Hello Emma
+</div>
+
+<div class="section-gap"></div>
+
+<h2>4. 4 Pillars of OOP</h2>
+
+<h3>Encapsulation</h3>
+
+<div class="desc">
+Bundling data and methods inside a class.
+</div>
+
+<pre>
+class BankAccount {
+  constructor(balance) {
+    this.balance = balance;
+  }
+
+  deposit(amount) {
+    this.balance += amount;
+  }
+
+  getBalance() {
+    return this.balance;
+  }
+}
+
+const acc = new BankAccount(1000);
+acc.deposit(500);
+
+console.log(acc.getBalance());
+</pre>
+
+<div class="output">
+Output: 1500
+</div>
+
+
+<pre>
+class BankAccount {
+  #balance;
+
+  constructor(balance) {
+    this.#balance = balance;
+  }
+
+  deposit(amount) {
+    this.#balance += amount;
+  }
+
+  getBalance() {
+    return this.#balance;
+  }
+}
+
+const acc = new BankAccount(1000);
+</pre>
+
+<div class="output">
+Output: acc.#balance = 999999; // Error
+</div>
+
+<div class="section-gap"></div>
+
+<h3>Inheritance</h3>
+
+<div class="desc">
+One class can inherit properties and methods from another class.
+</div>
+
+<pre>
+class Animal {
+  speak() {
+    console.log("Animal speaks");
+  }
+}
+
+class Dog extends Animal {
+  bark() {
+    console.log("Dog barks");
+  }
+}
+
+const d = new Dog();
+
+d.speak();
+d.bark();
+</pre>
+
+<div class="output">
+Output:<br>
+Animal speaks<br>
+Dog barks
+</div>
+
+<div class="section-gap"></div>
+
+<h2>super Keyword</h2>
+
+<pre>
+class Parent {
+  constructor(name) {
+    this.name = name;
+  }
+}
+
+class Child extends Parent {
+  constructor(name, age) {
+    super(name);
+    this.age = age;
+  }
+}
+
+const c = new Child("John", 20);
+
+console.log(c.name);
+</pre>
+
+<div class="output">
+Output: John
+</div>
+
+<div class="section-gap"></div>
+
+<h3> Abstraction</h3>
+
+<div class="desc">
+Hiding internal implementation and showing only required functionality.
+</div>
+
+<pre>
+class Car {
+  startEngine() {
+    this._checkFuel();
+    console.log("Engine Started");
+  }
+
+  _checkFuel() {
+    console.log("Fuel checked");
+  }
+}
+
+const car = new Car();
+car.startEngine();
+</pre>
+
+<div class="output">
+Output:<br>
+Fuel checked<br>
+Engine Started
+</div>
+
+<div class="section-gap"></div>
+
+
+<h3>Polymorphism</h3>
+
+<div class="desc">
+Same method behaves differently in different classes.
+</div>
+
+<pre>
+class Animal {
+  sound() {
+    console.log("Some sound");
+  }
+}
+
+class Dog extends Animal {
+  sound() {
+    console.log("Bark");
+  }
+}
+
+class Cat extends Animal {
+  sound() {
+    console.log("Meow");
+  }
+}
+
+const a = new Dog();
+const b = new Cat();
+
+a.sound();
+b.sound();
+</pre>
+
+<div class="output">
+Output:<br>
+Bark<br>
+Meow
+</div>
+
+<div class="section-gap"></div>
+
+
+
+<h3>Summary</h3>
+
+<div class="summary">
+OOP in JavaScript helps structure code using objects and classes. It is based on 4 pillars: Encapsulation, Abstraction, Inheritance, and Polymorphism. ES6 classes provide a cleaner syntax over prototypes.
+</div>
+
+</div>
+
+
+<!-- <div class="card" id="oop-advanced">
+
+<h2>18. Advanced OOP Concepts in JavaScript</h2>
+
+<div class="desc">
+This section covers advanced Object-Oriented Programming concepts used in real-world applications, frameworks, and interview-level problem solving.
+</div>
+
+<h3>Why Advanced OOP?</h3>
+
+<ul>
+<li>Used in large-scale applications</li>
+<li>Improves architecture and maintainability</li>
+<li>Helps in framework-level understanding (React, Node.js)</li>
+<li>Required for senior developer interviews</li>
+</ul>
+
+<div class="section-gap"></div>
+
+<h2>1. Static Methods</h2>
+
+<div class="desc">
+Static methods belong to the class itself, not the object instance.
+</div>
+
+<pre>
+class MathUtil {
+  static add(a, b) {
+    return a + b;
+  }
+
+  static multiply(a, b) {
+    return a * b;
+  }
+}
+
+console.log(MathUtil.add(2, 3));
+console.log(MathUtil.multiply(4, 5));
+</pre>
+
+<div class="output">
+Output:<br>
+5<br>
+20
+</div>
+
+<p>
+👉 Static methods are used for utility/helper functions.
+</p>
+
+<div class="section-gap"></div>
+
+<h2>2. Getters and Setters</h2>
+
+<div class="desc">
+Getters and setters allow controlled access to object properties.
+</div>
+
+<pre>
+class User {
+  constructor(name) {
+    this._name = name;
+  }
+
+  get name() {
+    return this._name;
+  }
+
+  set name(value) {
+    this._name = value;
+  }
+}
+
+const user = new User("John");
+
+console.log(user.name);
+
+user.name = "Alex";
+
+console.log(user.name);
+</pre>
+
+<div class="output">
+Output:<br>
+John<br>
+Alex
+</div>
+
+<div class="section-gap"></div>
+
+<h2>3. Private Fields (ES2020)</h2>
+
+<div class="desc">
+Modern JavaScript supports true private variables using # syntax.
+</div>
+
+<pre>
+class BankAccount {
+  #balance = 1000;
+
+  deposit(amount) {
+    this.#balance += amount;
+  }
+
+  getBalance() {
+    return this.#balance;
+  }
+}
+
+const account = new BankAccount();
+
+account.deposit(500);
+
+console.log(account.getBalance());
+</pre>
+
+<div class="output">
+Output: 1500
+</div>
+
+<p>
+👉 #balance cannot be accessed outside the class.
+</p>
+
+<div class="section-gap"></div>
+
+<h2>4. Object.create() Pattern</h2>
+
+<div class="desc">
+Another way to create inheritance using prototype directly.
+</div>
+
+<pre>
+const animal = {
+  speak() {
+    console.log("Animal sound");
+  }
+};
+
+const dog = Object.create(animal);
+
+dog.speak();
+</pre>
+
+<div class="output">
+Output: Animal sound
+</div>
+
+<div class="section-gap"></div>
+
+<h2>5. Class vs Prototype (Important Concept)</h2>
+
+<div class="desc">
+ES6 Classes are syntactic sugar over JavaScript prototypes.
+Internally, JavaScript still uses prototype-based inheritance.
+</div>
+
+<pre>
+class Person {
+  constructor(name) {
+    this.name = name;
+  }
+
+  greet() {
+    console.log("Hello " + this.name);
+  }
+}
+</pre>
+
+<div class="desc">
+Internally, this is equivalent to prototype-based function constructors.
+</div>
+
+<div class="section-gap"></div>
+
+<h2>6. Composition over Inheritance</h2>
+
+<div class="desc">
+Modern JavaScript prefers composition (combining behaviors) instead of deep inheritance chains.
+</div>
+
+<pre>
+function canWalk(obj) {
+  obj.walk = function () {
+    console.log("Walking...");
+  };
+}
+
+function canEat(obj) {
+  obj.eat = function () {
+    console.log("Eating...");
+  };
+}
+
+const person = {};
+
+canWalk(person);
+canEat(person);
+
+person.walk();
+person.eat();
+</pre>
+
+<div class="output">
+Output:<br>
+Walking...<br>
+Eating...
+</div>
+
+<p>
+👉 This approach is more flexible than inheritance.
+</p>
+
+<div class="section-gap"></div>
+
+<h2>7. Key Interview Insight</h2>
+
+<ul>
+<li>Classes are NOT a new OOP system</li>
+<li>They are syntax over prototype system</li>
+<li>JavaScript is fundamentally prototype-based</li>
+</ul>
+
+<div class="section-gap"></div>
+
+<h3>Summary</h3>
+
+<div class="summary">
+Advanced OOP in JavaScript includes static methods, getters/setters, private fields, prototype patterns, and composition. These concepts are essential for scalable architecture and senior-level interviews.
+</div>
+
+</div> -->
+
+</div>  <!-- End Card -->
+
+<script>
+
+const sections = document.querySelectorAll(".card");
+const navLinks = document.querySelectorAll(".sidebar a");
+
+window.addEventListener("scroll", () => {
+
+  let current = "";
+
+  sections.forEach(section => {
+
+    const sectionTop = section.offsetTop;
+    const sectionHeight = section.clientHeight;
+
+    if (pageYOffset >= sectionTop - 200) {
+      current = section.getAttribute("id");
+    }
+
+  });
+
+  navLinks.forEach(link => {
+
+    link.classList.remove("active");
+
+    if (link.getAttribute("href") === `#${current}`) {
+      link.classList.add("active");
+    }
+
+  });
+
+});
+
+</script>
+
+<script>
+
+document.querySelectorAll("pre").forEach((block) => {
+
+  const button = document.createElement("button");
+
+  button.innerText = "Copy";
+  button.className = "copy-btn";
+
+  block.appendChild(button);
+
+  button.addEventListener("click", () => {
+
+    const code = block.innerText.replace("Copy", "");
+
+    navigator.clipboard.writeText(code);
+
+    button.innerText = "Copied!";
+
+    setTimeout(() => {
+      button.innerText = "Copy";
+    }, 2000);
+
+  });
+
+});
+
+</script>
+</body>
+</html>
